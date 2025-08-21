@@ -1,0 +1,10 @@
+[package]
+name = "matching_engine"
+version = "0.1.0"
+authors = ["sbetool"]
+description = "Matching engine request/response messages"
+edition = "2021"
+
+[lib]
+name = "matching_engine"
+path = "src/lib.rs"

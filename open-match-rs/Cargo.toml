@@ -1,0 +1,18 @@
+[package]
+name = "open-match-rs"
+version = "0.0.1"
+edition = "2024"
+description = "Open source low-latency matching engine built with Rust"
+authors = ["Ramon Singh <Ramonster1@icloud.com>"]
+
+
+[dependencies]
+dashmap = "6.1.0"
+quanta = "0.12.6"
+
+[dev-dependencies]
+criterion = { version = "0.7.0", features = ["html_reports"] }
+
+[[bench]]
+name = "bench_order_book"
+harness = false
