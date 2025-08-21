@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<sbe:messageSchema xmlns:sbe="http://fixprotocol.io/2016/sbe"
+                   package="matching.engine"
+                   id="1"
+                   version="0"
+                   semanticVersion="1.0.0"
+                   description="Matching engine request/response messages">
+
+    <!-- TYPE ALIASES + HEADER -->
+    <types>
+        <type name="OrderId" primitiveType="uint64"/>
+        <type name="Qty" primitiveType="uint64"/>
+        <type name="Price" primitiveType="uint64"/>
+        <type name="ResultCode" primitiveType="uint32"/>
+        <type name="TimestampNs" primitiveType="uint64"/>
+
+        <composite name="messageHeader" description="Template ID and length of message root">
+            <type name="blockLength" primitiveType="uint16"/>
+            <type name="templateId" primitiveType="uint16"/>
+            <type name="schemaId" primitiveType="uint16"/>
+            <type name="version" primitiveType="uint16"/>
+        </composite>
+    </types>
+
+    <!-- REQUEST MESSAGES -->
+    <sbe:message name="NewOrderRequest" id="1">
+        <field name="orderId" id="1" type="OrderId"/>
+        <field name="price" id="2" type="Price"/>
+        <field name="qty" id="3" type="Qty"/>
+    </sbe:message>
+
+    <sbe:message name="CancelRequest" id="2">
+        <field name="orderId" id="1" type="OrderId"/>
+    </sbe:message>
+
+    <sbe:message name="UpdateQtyRequest" id="3">
+        <field name="orderId" id="1" type="OrderId"/>
+        <field name="newQty" id="2" type="Qty"/>
+    </sbe:message>
+
+    <sbe:message name="PartialFillRequest" id="4">
+        <field name="qtyToFill" id="1" type="Qty"/>
+    </sbe:message>
+
+    <!-- RESPONSE MESSAGES -->
+    <sbe:message name="TimedResult" id="10">
+        <field name="timestampNs" id="1" type="TimestampNs"/>
+        <field name="resultCode" id="2" type="ResultCode"/>
+    </sbe:message>
+
+    <sbe:message name="FillInfo" id="11">
+        <field name="orderId" id="1" type="OrderId"/>
+        <field name="filledQty" id="2" type="Qty"/>
+        <field name="remainingQty" id="3" type="Qty" presence="optional"/>
+    </sbe:message>
+
+    <sbe:message name="RemoveInfo" id="12">
+        <field name="orderId" id="1" type="OrderId"/>
+        <field name="canceledQty" id="2" type="Qty"/>
+    </sbe:message>
+
+    <sbe:message name="QtyUpdatedInfo" id="13">
+        <field name="orderId" id="1" type="OrderId"/>
+        <field name="newQty" id="2" type="Qty"/>
+    </sbe:message>
+
+</sbe:messageSchema>
